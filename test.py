@@ -1,3 +1,3 @@
 <<<<<<< HEAD
 print("Python education")
->>>>>>> c0fa02e (test.py change on string#2)
+>>>>>>> 5956f39 (test.py change on string#3)
