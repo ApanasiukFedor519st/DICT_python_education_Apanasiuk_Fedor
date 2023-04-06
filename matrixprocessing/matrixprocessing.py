@@ -38,4 +38,18 @@ def matrixconst():
             a[i][k] *= c
     matrixprint(a)
 
-matrixconst()
+def matrixmultiplymatrix():
+    a = matrixenter()
+    b = matrixenter()
+    if len(a[0]) != len(b):
+        print("ERROR")
+    else:
+        matrix = [[0 for j in range(len(b[0]))] for i in range(len(a))]
+        for i in range(0, len(a)):
+            for j in range(0, len(b[i])):
+                result = 0
+                for k in range(0, len(b)):
+                    result += a[i][k] * b[k][j]
+                matrix[i][j] = int(result) if round(result) == 0 else result
+        matrixprint(matrix)
+matrixmultiplymatrix()
