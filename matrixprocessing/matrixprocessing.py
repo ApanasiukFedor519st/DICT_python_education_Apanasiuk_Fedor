@@ -13,16 +13,29 @@ def matrixenter():
     return listA
 
 def matrixprint(matrix):
-    for i in range(0,len(a)):
-        for k in range(0,len(a[0])):
+    for i in range(0,len(matrix)):
+        for k in range(0,len(matrix[0])):
             print(matrix[i][k], end=" ")
         print()
-a = matrixenter()
-b = matrixenter()
-if len(a)==len(b) and len(a[0]) == len(b[0]):
-    for i in range(0,len(a)):
-        for k in range(0,len(a[0])):
-            a[i][k]+=b[i][k]
+
+def matrixadd():
+    a = matrixenter()
+    b = matrixenter()
+    if len(a) == len(b) and len(a[0]) == len(b[0]):
+        for i in range(0, len(a)):
+            for k in range(0, len(a[0])):
+                a[i][k] += b[i][k]
+        matrixprint(a)
+    else:
+        print("ERROR")
+
+def matrixconst():
+    a = matrixenter()
+    print("Write a constant")
+    c = int(input())
+    for i in range(0, len(a)):
+        for k in range(0, len(a[0])):
+            a[i][k] *= c
     matrixprint(a)
-else:
-    print("ERROR")
+
+matrixconst()
