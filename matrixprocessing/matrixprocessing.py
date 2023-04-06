@@ -52,4 +52,56 @@ def matrixmultiplymatrix():
                     result += a[i][k] * b[k][j]
                 matrix[i][j] = int(result) if round(result) == 0 else result
         matrixprint(matrix)
-matrixmultiplymatrix()
+
+def mainmenu():
+    while True:
+        choice = int(input('''1. Add matrices 
+2. Multiply matrix by a constant 
+3. Multiply matrices
+4. Transpose matrix 
+0. Exit 
+'''))
+        if choice == 0: return None
+        elif choice == 1: matrixadd()
+        elif choice == 2: matrixconst()
+        elif choice == 3: matrixmultiplymatrix()
+        elif choice == 4:
+            key = 0
+            while key < 1 or key > 4:
+                key = int(input('''1. Main diagonal 
+2. Side diagonal 
+3. Vertical line 
+4. Horizontal line \n'''))
+            matrix = matrixenter()
+            matrixtranspose(matrix,key)
+
+def matrixtranspose(matrix_1,k):
+    result_matrix = []
+    match k:
+        case 1:
+            length = len(matrix_1)
+            result_matrix = [[0 for i in range(length)] for i in range(length)]
+            for i in range(length):
+                for j in range(length):
+                    result_matrix[i][j] = matrix_1[j][i]
+        case 2:
+            length = len(matrix_1)
+            result_matrix = [[0 for i in range(length)] for i in range(length)]
+            for i in range(length):
+                for j in range(length):
+                    result_matrix[i][j] = matrix_1[-j - 1][-i - 1]
+        case 3:
+            length = len(matrix_1)
+            result_matrix = [[0 for i in range(length)] for i in range(length)]
+            for i in range(length):
+                for j in range(length):
+                    result_matrix[i][j] = matrix_1[i][-j - 1]
+        case 4:
+            length = len(matrix_1)
+            result_matrix = [[0 for i in range(length)] for i in range(length)]
+            for i in range(length):
+                for j in range(length):
+                    result_matrix[i][j] = matrix_1[-i - 1][j]
+    matrixprint(result_matrix)
+
+mainmenu()
