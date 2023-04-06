@@ -58,7 +58,8 @@ def mainmenu():
         choice = int(input('''1. Add matrices 
 2. Multiply matrix by a constant 
 3. Multiply matrices
-4. Transpose matrix 
+4. Transpose matrix
+5. Calculate a determinant 
 0. Exit 
 '''))
         if choice == 0: return None
@@ -74,6 +75,9 @@ def mainmenu():
 4. Horizontal line \n'''))
             matrix = matrixenter()
             matrixtranspose(matrix,key)
+        elif choice == 5:
+            matrix = matrixenter()
+            print(determinant(matrix))
 
 def matrixtranspose(matrix_1,k):
     result_matrix = []
@@ -103,5 +107,15 @@ def matrixtranspose(matrix_1,k):
                 for j in range(length):
                     result_matrix[i][j] = matrix_1[-i - 1][j]
     matrixprint(result_matrix)
+
+def determinant(matrix):
+    if len(matrix) != len(matrix[0]) or len(matrix) > 3:
+        print("ERRor")
+    if len(matrix) == 1:
+        return matrix[0][0]
+    if len(matrix) == 2:
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+    if len(matrix) == 3:
+        return matrix[0][0] * matrix[1][1] * matrix[2][2] + matrix[0][2] * matrix[1][0] * matrix[2][1] + matrix[0][1] * matrix[1][2] * matrix[2][0] - matrix[0][2] * matrix[1][1] * matrix[2][0] - matrix[0][0] * matrix[1][2] * matrix[2][1] - matrix[0][1] * matrix[1][0] * matrix[2][2]
 
 mainmenu()
