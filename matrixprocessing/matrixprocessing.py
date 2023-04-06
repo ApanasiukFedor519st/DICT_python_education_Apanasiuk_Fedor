@@ -29,14 +29,11 @@ def matrixadd():
     else:
         print("ERROR")
 
-def matrixconst():
-    a = matrixenter()
-    print("Write a constant")
-    c = int(input())
-    for i in range(0, len(a)):
-        for k in range(0, len(a[0])):
-            a[i][k] *= c
-    matrixprint(a)
+def matrixconst(matrix,const):
+    for i in range(0, len(matrix)):
+        for k in range(0, len(matrix[0])):
+            matrix[i][k] *= const
+    matrixprint(matrix)
 
 def matrixmultiplymatrix():
     a = matrixenter()
@@ -59,12 +56,17 @@ def mainmenu():
 2. Multiply matrix by a constant 
 3. Multiply matrices
 4. Transpose matrix
-5. Calculate a determinant 
+5. Calculate a determinant
+6. Inverse matrix
 0. Exit 
 '''))
         if choice == 0: return None
         elif choice == 1: matrixadd()
-        elif choice == 2: matrixconst()
+        elif choice == 2:
+            a = matrixenter()
+            print("Write a constant")
+            c = int(input())
+            matrixconst(a,c)
         elif choice == 3: matrixmultiplymatrix()
         elif choice == 4:
             key = 0
@@ -78,6 +80,9 @@ def mainmenu():
         elif choice == 5:
             matrix = matrixenter()
             print(determinant(matrix))
+        elif choice == 6:
+            matrix = matrixenter()
+            reverse(matrix)
 
 def matrixtranspose(matrix_1,k):
     result_matrix = []
@@ -107,6 +112,7 @@ def matrixtranspose(matrix_1,k):
                 for j in range(length):
                     result_matrix[i][j] = matrix_1[-i - 1][j]
     matrixprint(result_matrix)
+    return result_matrix
 
 def determinant(matrix):
     if len(matrix) != len(matrix[0]) or len(matrix) > 3:
@@ -117,5 +123,29 @@ def determinant(matrix):
         return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
     if len(matrix) == 3:
         return matrix[0][0] * matrix[1][1] * matrix[2][2] + matrix[0][2] * matrix[1][0] * matrix[2][1] + matrix[0][1] * matrix[1][2] * matrix[2][0] - matrix[0][2] * matrix[1][1] * matrix[2][0] - matrix[0][0] * matrix[1][2] * matrix[2][1] - matrix[0][1] * matrix[1][0] * matrix[2][2]
+
+def reverse(matrix):
+    det = determinant(matrix)
+    if det == 0 or det is None:
+        print("ERROR")
+    else:
+        transpose_matrix = matrixtranspose(matrix,1)
+        reverse_matrix = [[0 for j in range(len(transpose_matrix))] for i in range(len(transpose_matrix[0]))]
+        for i in range(len(transpose_matrix)):
+            for j in range(len(transpose_matrix[0])):
+                minor = [[0 for j in range(len(transpose_matrix) - 1)] for i in range(len(transpose_matrix[0]) - 1)]
+                row_shift = 0
+                for k in range(len(transpose_matrix)):
+                    if k == i:
+                        row_shift = 1
+                        continue
+                    column_shift = 0
+                    for p in range(len(transpose_matrix[0])):
+                        if p == j:
+                            column_shift = 1
+                            continue
+                        minor[(k - row_shift)][(p - column_shift)] = transpose_matrix[k][p]
+                reverse_matrix[i][j] = ((-1) ** (i + j)) * determinant(minor)
+        return matrixconst(reverse_matrix, 1 / det)
 
 mainmenu()
