@@ -37,6 +37,20 @@ while True:
         text += line
     elif formatter == "new-line":
         text += "\n"
+    elif formatter == "unordered-list":
+        rows = int(input('Number of rows:>'))
+        while rows <= 0:
+            rows = int(input('The numbers of rows should be greater than zero\nNumber of rows:>'))
+        for i in range(1, rows + 1):
+            row = input(f'Row #{i}:>')
+            text += f'* {row}\n'
+    elif formatter == "ordered-list":
+        rows = int(input('Number of rows:>'))
+        while rows <= 0:
+            rows = int(input('The numbers of rows should be greater than zero\nNumber of rows:>'))
+        for i in range(1, rows + 1):
+            row = input(f'Row #{i}:>')
+            text += f'{i}.{row}\n'
     else:
         print("Unknown formatting type or command")
         continue
