@@ -55,4 +55,4 @@ while True:
         print("Unknown formatting type or command")
         continue
     print(text)
-
+    with open("output.md","w") as f: f.writelines(text)
